@@ -1,0 +1,28 @@
+<MainLayout>:
+    main_layout: main_layout
+    orientation: 'horizontal'
+    id: main_layout
+    
+    Image:
+        id: main_image
+
+    BoxLayout:
+        size_hint: 0.2, 1
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            text: str(sl1.value)
+            size_hint: 1, 0.1
+        Slider:
+            id: sl1
+            orientation: 'vertical'
+            min: 1
+            max: 100
+            step: 1
+            on_value: root.send_nsamples()
+            size_hint: 1, 0.7
+        Button:
+            text: 'SAVE png'
+            on_press: root.save_image()
+            size_hint: 1, 0.2
