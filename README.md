@@ -2,6 +2,8 @@
 
 This project is a simple example of a program consisting of two intercommunicating processes: a python process and a C process. The project itself is not very useful except that for learning purposes.
 
+![Screenshot](https://github.com/carloantinarella/pyc1/blob/master/screenshot.png?raw=true)
+
 The C process (source code in pyc1.c), when started, launches two threads: the first one periodically reads a certain amount of raw bytes from /dev/urandom and copies them into a portion of previously initialized shared memory; the second thread opens a UNIX datagram socket and then keeps listening for messages from the python process.
 
 The python process makes use of the Kivy library for GUI handling. After opening (in readonly mode) the shared memory area created by the C process, it transforms the raw bytes there present in pixels by dividing the byte array in groups of three (R, G, B), and builds a texture that is a graphical representation of the pixels' color. Pixel replication algorithm (yes, is very slow!) is used in order to have a better rendering and a better understanding of the functionality. That way the texture displays a matrix of random-colored big pixels (is very easy to change single pixel dimensions just by changing a variable in the python code). At startup, the python process connects to the UNIX datagram socket previously created by the C process, and sends a numeric value to the C process that represents the number of grid-samples read from /dev/urandom over which an average should be performed (the average is performed by the C process, and turns out to be fast). The number can be chosen during runtime by the user just by using the slider in the right part of the GUI.
